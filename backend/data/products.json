@@ -1,0 +1,46 @@
+{
+    "products": [
+        {
+            "manufacturer": "ChargePoint",
+            "model": "Home Flex",
+            "is_hardwired": true,
+            "is_networked": true,
+            "id": 1
+        },
+        {
+            "manufacturer": "ChargePoint",
+            "model": "Home Flex 2",
+            "is_hardwired": false,
+            "is_networked": true,
+            "id": 2
+        },
+        {
+            "manufacturer": "Grizzl-E",
+            "model": "Classic",
+            "is_hardwired": false,
+            "is_networked": false,
+            "id": 3
+        },
+        {
+            "manufacturer": "Grizzl-E",
+            "model": "Smart",
+            "is_hardwired": true,
+            "is_networked": false,
+            "id": 4
+        },
+        {
+            "manufacturer": "everything",
+            "model": "works",
+            "is_hardwired": true,
+            "is_networked": true,
+            "id": 5
+        },
+        {
+            "manufacturer": "program",
+            "model": "one",
+            "is_hardwired": false,
+            "is_networked": true,
+            "id": 5
+        }
+    ]
+ }
