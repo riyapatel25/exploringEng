@@ -43,65 +43,72 @@ app.get('/api/productNames', (req, res) => {
     const productNames = productsData.products.map(product => `${product.manufacturer} ${product.model}`);
     res.json(productNames);
     });
+      
 
-    app.get('/api/getMatchingPrograms', (req, res) => {
+app.get('/api/getMatchingPrograms', (req, res) => {
+    const { zipCode, productName, purchaseAmount } = req.query;
+    
+    console.log(`zipCode: ${zipCode}, productName: ${productName}, purchaseAmount: ${purchaseAmount}`);
+    
+    // Read data from JSON files
+    const productsData = JSON.parse(fs.readFileSync('./data/products.json', 'utf8'));
+    const programsData = JSON.parse(fs.readFileSync('./data/programs.json', 'utf8'));
+    const zipsData = JSON.parse(fs.readFileSync('./data/zips.json', 'utf8'));
+    const zipProgramJunctionData = JSON.parse(fs.readFileSync('./data/zip_program_junction.json', 'utf8')).zip_program_junction;
+    
+    // Read conditions from JSON file
+    const conditionsData = JSON.parse(fs.readFileSync('./data/conditions.json', 'utf8'));
+    const conditions = conditionsData.conditions;
+    
+    // Find product by name
+    const product = productsData.products.find(p => (p.manufacturer + ' ' + p.model) === productName);
+    
+    if (!product) {
+        return res.status(504).json({ error: 'Product not found' });
+    }
+    
+    // print product
+    console.log(`product: ${JSON.stringify(product)}`);
+    
+    // Get zip ID for the given zip code
+    const zipId = zipsData.zips.find(zip => zip.zip_code === zipCode);
+    
+    if (!zipId) {
+        return res.status(504).json({ error: 'Zip code not found' });
+    }
+    
+    // print zipId
+    console.log(`zipId: ${JSON.stringify(zipId)}`);
+    
+    // Get program IDs applicable to the given zip code
+    const programIds = zipProgramJunctionData
+        .filter(junction => junction.zip_id === Number(zipId.id))
+        .map(junction => junction.program_id);
+    
+    // print programIds
+    console.log(`programIds: ${programIds}`);
+    
+    // Filter programs based on product constraints and matching program IDs DYNAMICALLY!!
+    const matchingPrograms = programsData.programs.filter(program => {
+        return (
+        programIds.includes(program.id) &&
+        conditions.every(condition => program[condition.programProp] === product[condition.productProp])
+        );
+    });
+    
+    // Calculate the new column for each matching program
+    const programsWithRebate = matchingPrograms.map(program => {
+        const { max_amount, max_percent_amount } = program; //extract fields in matchingPrograms
+        const calculatedValue = Math.min(purchaseAmount * (max_percent_amount / 100), max_amount);
+        return { name:program.name, rebate_amount: calculatedValue };
+    });
+    
+    // print programsWithNewColumn
+    console.log(`programsWithRebate: ${JSON.stringify(programsWithRebate)}`);
 
-        const { zipCode, productName, purchaseAmount } = req.query;
-            
-        // Read data from JSON files
-        const productsData = JSON.parse(fs.readFileSync('./data/products.json', 'utf8'));
-        const programsData = JSON.parse(fs.readFileSync('./data/programs.json', 'utf8'));
-        const zipsData = JSON.parse(fs.readFileSync('./data/zips.json', 'utf8'));
-        const zipProgramJunctionData = JSON.parse(fs.readFileSync('./data/zip_program_junction.json', 'utf8')).zip_program_junction;
-      
-        // Find product by name
-        const product = productsData.products.find(p => (p.manufacturer + ' ' + p.model) === productName);
-      
-        if (!product) {
-            console.log("shit went doooown")
-          return res.status(504).json({ error: 'Product not found' });
-        }
-      
-        // Get zip ID for the given zip code
-        const zipId = zipsData.zips.find(zip => zip.zip_code === zipCode);
-      
-        if (!zipId) {
-            console.log("dddammnnnn")
-          return res.status(504).json({ error: 'Zip code not found' });
-        }
-
-        // Get program IDs applicable to the given zip code
-        const programIds = zipProgramJunctionData
-          .filter(junction => junction.zip_id === Number(zipId.id))
-          .map(junction => junction.program_id);
-   
-
-        // Filter programs based on product constraints and matching program IDs
-        const matchingPrograms = programsData.programs.filter(program => {
-          return (
-            program.hardwire_required === product.is_hardwired &&
-            program.networked_required === product.is_networked &&
-            programIds.includes(program.id)
-          );
-        });
-      
-        // Calculate the new column for each matching program
-        const programsWithrebate = matchingPrograms.map(program => {
-          const { max_amount, max_percent_amount } = program;
-          const calculatedValue = Math.min(purchaseAmount * (max_percent_amount / 100), max_amount);
-          return { ...program, rebate_amount: calculatedValue };
-        });
-     
-        // for final ouput, loop through programsWithrebate and return only the program model, manufacturer and rebate amount
-
-        const finalOutput = programsWithrebate.map(program => {
-            return { rebate_amount: program.rebate_amount, name: program.name};
-          });
-          
-          res.json(finalOutput);
-          console.log(finalOutput)
-      });
-      
+    res.json(programsWithRebate);
+    
+    });
       
 
 // Start the server

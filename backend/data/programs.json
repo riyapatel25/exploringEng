@@ -95,6 +95,14 @@
             "networked_required": true,
             "max_amount": 10000,
             "max_percent_amount": 100
+        },
+        {
+            "name": "mama",
+            "id": 13,
+            "hardwire_required": false,
+            "networked_required": false,
+            "max_amount": 10000,
+            "max_percent_amount": 100
         }
     ]
 }
