@@ -69,15 +69,15 @@
 # SOME SAMPLE TESTS TO RUN  
 Go to Rebates Tab
 
-1.
+--------------------------------------------------------------------------
   - Product: everything works
   - Zipcode: 94117 
   - Product Price: any integer value (no commas/special chars)
-2.
+--------------------------------------------------------------------------
   - enter an invalid zipcode to see error response
-3.
+--------------------------------------------------------------------------
   - don't select a product to see error response
-4.
+--------------------------------------------------------------------------
   First try this-> shouldn't display any rebates
   - Product: program one
   - Zipcode: 94117 
@@ -87,7 +87,6 @@ Go to Rebates Tab
   - Product: program one
   - Zipcode: 94117 
   - Product Price: any integer value (no commas/special chars)
-5.
+--------------------------------------------------------------------------
   - test dollar returned values for different price inputs
-
-
+--------------------------------------------------------------------------
