@@ -1,5 +1,5 @@
 
-# Rebate Finder Take Home Project
+# WIE EXPLORING ENG
 
 # HOW TO RUN THE CODE
 
