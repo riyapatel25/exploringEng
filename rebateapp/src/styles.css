@@ -8,7 +8,7 @@ body {
 }
 
 .navbar {
-  background-color: #1f1f1f;
+  background-color: #b1a4c5;
   color: #ffffff;
   padding: 16px 40px;
   display: flex;
@@ -127,8 +127,36 @@ body {
   border: 1px solid #cccccc;
   border-radius: 4px;
 }
-.get-rebates-button {
-  background-color: #b3d3b6;
-  color: #265736; 
-  margin-bottom: 5rem;
+.button {
+  padding: 16px 32px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #90638f;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 0 auto;
+  display: block;
+  margin-bottom: 20px;
 }
+
+.button:hover {
+  background-color: #471959;
+}
+
+.image-gallery {
+  display: flex;
+  justify-content: space-between;
+}
+
+.gallery-image {
+  width: 300px;
+  height: auto;
+  margin-right: 50px;
+  margin-left: 50px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+

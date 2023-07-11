@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import './styles.css';
 import Navbar from './components/NavBar';
-import ProductDropdown from './components/ProductDropdown';
-import ZipCodeInput from './components/ZipCodeInput';
-import ProductPrice from './components/ProductPrice';
-import GetRebatesButton from './components/GetRebatesButton';
+import Dropdown from './components/Dropdown';
+import ImageGallery from './components/ImageGallery';
+import Button from './components/Button';
 import Home from './components/Home/Home';
 
 const App = () => {
@@ -16,11 +15,10 @@ const App = () => {
     } else if (activeTab === 'rebates') {
       return (
         <div className="rebates-content">
-          <h1 className="title">Rebate Program Finder</h1>
-          <ProductDropdown />
-          <ZipCodeInput />
-          <ProductPrice />
-          <GetRebatesButton />
+          <h1 className="title">Create Your WebPage</h1>
+          <Dropdown />
+          <ImageGallery />
+          <Button /> 
         </div>
       );
     }

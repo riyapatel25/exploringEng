@@ -9,7 +9,7 @@ const Navbar = ({ activeTab, setActiveTab }) => {
   return (
     <nav className="navbar">
       <div className="navbar-brand">
-        <h1 className="logo">Upfront</h1>
+        <h1 className="logo">Exploring Engineering</h1>
       </div>
       <ul className="nav-links">
         <li
@@ -25,7 +25,7 @@ const Navbar = ({ activeTab, setActiveTab }) => {
           onClick={() => handleTabClick('rebates')}
         >
           <a href="#" className="nav-link">
-            Rebates
+            Activity
           </a>
         </li>
       </ul>

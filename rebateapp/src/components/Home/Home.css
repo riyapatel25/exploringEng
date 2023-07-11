@@ -6,6 +6,7 @@
     justify-content: center;
     text-align: center;
     height: 100vh; 
+    background-color: rgb(49, 22, 93);
   }
   
   .logo-container {
@@ -19,9 +20,9 @@
   
   .welcome-text {
     margin-top: 20px;
-    font-size: 30px;
+    font-size: 50px;
     text-align: center;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     font-weight: bold;
     padding: 10px;
   }
@@ -35,4 +36,9 @@
     background-size: cover;
     background-position: center;
     opacity: .2;
+  }
+  .img {
+    width: 500px; /* Adjust the width as needed */
+    height: auto;
+    margin-top: 20px; /* Add margin to create space between the image and the welcome text */
   }
